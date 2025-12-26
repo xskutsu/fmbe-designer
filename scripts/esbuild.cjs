@@ -22,10 +22,13 @@ async function build(config) {
 (async function () {
 	console.log("Starting building...");
 	const context = await build({
-		entryPoints: ["./src/index.ts"],
+		entryPoints: [
+			"./src/app.ts",
+			"./src/sw.ts"
+		],
 		sourcesContent: false,
 		format: "iife",
-		outfile: "public/js/bundle.js",
+		outdir: "public/js/",
 		platform: "browser",
 		minify: true,
 		tsconfig: "./tsconfig.json"

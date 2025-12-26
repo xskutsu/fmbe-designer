@@ -2,8 +2,8 @@ const fs = require("fs");
 const path = require("path");
 const projectRoot = path.resolve(__dirname, "..");
 const pathsToDelete = [
-	"public/js/bundle.js",
-	"public/js/bundle.js.map"
+	"public/js/",
+	"public/js/"
 ];
 console.log("Starting cleaning...");
 for (let p of pathsToDelete) {

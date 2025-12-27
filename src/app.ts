@@ -10,3 +10,11 @@ if ("serviceWorker" in navigator) {
 		});
 	});
 }
+
+if ("orientation" in screen && "lock" in screen.orientation) {
+	try {
+		(screen.orientation.lock as any)("landscape");
+	} catch (err: unknown) {
+
+	}
+}

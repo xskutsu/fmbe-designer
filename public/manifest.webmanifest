@@ -3,6 +3,7 @@
 	"short_name": "FMBE Visual Editor",
 	"start_url": "/",
 	"display": "standalone",
+	"orientation": "landscape",
 	"background_color": "#444444",
 	"theme_color": "#444444",
 	"icons": [

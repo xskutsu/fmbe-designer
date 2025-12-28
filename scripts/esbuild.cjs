@@ -23,8 +23,8 @@ async function build(config) {
 	console.log("Starting building...");
 	const context = await build({
 		entryPoints: [
-			"./src/app.ts",
-			"./src/serviceWorker.ts"
+			"./src/index.ts",
+			"./src/sw.ts"
 		],
 		sourcesContent: false,
 		format: "iife",

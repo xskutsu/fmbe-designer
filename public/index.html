@@ -11,10 +11,151 @@
 	<link rel="icon" type="image/x-icon" sizes="32x32" href="/assets/logo/favicon-32.ico" />
 	<link rel="apple-touch-icon" href="/assets/logo/apple-touch-icon.png" />
 	<link rel="manifest" href="/manifest.webmanifest" />
+	<style>
+		html {
+			background: white;
+			filter: invert(1) hue-rotate(180deg);
+		}
+
+		img,
+		video,
+		iframe {
+			filter: invert(1) hue-rotate(180deg);
+		}
+	</style>
 </head>
 
 <body>
-	<script src="/js/app.js"></script>
+	<div>
+		<span>Entity Properties</span>
+		<div>
+			<div>
+				<div>
+					<span>METADATA</span>
+				</div>
+				<div>
+					<div>
+						<span>Selector</span>
+						<input>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div>
+					<span>POSITION</span>
+				</div>
+				<div>
+					<div>
+						<span>X</span>
+						<input type="range" min="-32" max="32" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+					<div>
+						<span>Y</span>
+						<input type="range" min="-32" max="32" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+					<div>
+						<span>Z</span>
+						<input type="range" min="-32" max="32" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+				</div>
+			</div>
+			<div>
+				<div>
+					<span>ROTATION</span>
+				</div>
+				<div>
+					<div>
+						<span>X Rotation</span>
+						<input type="range" min="-180" max="180" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+					<div>
+						<span>Y Rotation</span>
+						<input type="range" min="-180" max="180" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+					<div>
+						<span>Z Rotation</span>
+						<input type="range" min="-180" max="180" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+				</div>
+			</div>
+			<div>
+				<div>
+					<span>SCALE</span>
+				</div>
+				<div>
+					<div>
+						<span>Scale</span>
+						<input type="range" min="0" max="4" value="1">
+						<input type="text" value="1">
+						<input type="checkbox">
+					</div>
+				</div>
+			</div>
+			<div>
+				<div>
+					<span>PIVOT</span>
+				</div>
+				<div>
+					<div>
+						<span>Base X</span>
+						<input type="range" min="-32" max="32" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+					<div>
+						<span>Base Y</span>
+						<input type="range" min="-32" max="32" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+					<div>
+						<span>Base Z</span>
+						<input type="range" min="-32" max="32" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+				</div>
+			</div>
+			<div>
+				<div>
+					<span>SHEAR</span>
+				</div>
+				<div>
+					<div>
+						<span>Scale</span>
+						<input type="range" min="0" max="5" value="1">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+					<div>
+						<span>X Rotation</span>
+						<input type="range" min="-180" max="180" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+					<div>
+						<span>Y Rotation</span>
+						<input type="range" min="-32" max="32" value="0">
+						<input type="text" value="0">
+						<input type="checkbox">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/js/index.js"></script>
 </body>
 
 </html>

@@ -18,3 +18,30 @@ if ("orientation" in screen && "lock" in screen.orientation) {
 
 	}
 }
+
+type MolangValue = number | string;
+
+interface MolangVector3 {
+	x: MolangValue;
+	y: MolangValue;
+	z: MolangValue;
+}
+
+interface MolangVector2 {
+	x: MolangValue;
+	y: MolangValue;
+}
+
+interface FMBEEntityExtend {
+	scale: MolangValue;
+	rotation: MolangVector2;
+}
+
+interface FMBEEntity {
+	selector: MolangValue;
+	position: MolangVector3;
+	basePosition: MolangVector3;
+	rotation: MolangVector3;
+	scale: MolangValue;
+	extend: FMBEEntityExtend;
+}

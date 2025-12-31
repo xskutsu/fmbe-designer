@@ -34,6 +34,7 @@ export default class OrbitCameraControl {
 		domElement.addEventListener("mouseup", () => this._mouseUpEvent());
 		domElement.addEventListener("mousemove", e => this._mouseMoveEvent(e.clientX, e.clientY));
 		domElement.addEventListener("wheel", e => this._wheelEvent(e.deltaY));
+		domElement.addEventListener("contextmenu", e => e.preventDefault());
 	}
 
 	private _mouseDownEvent(clientX: number, clientY: number): void {

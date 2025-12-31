@@ -10,8 +10,7 @@ export function createBlockMesh(et: EntityTexture): Mesh {
 		texture.colorSpace = SRGBColorSpace;
 		materials.push(new MeshStandardMaterial({
 			map: texture,
-			color: 0xffffff,
-			roughness: 1,
+			roughness: 0,
 			metalness: 0
 		}));
 	}

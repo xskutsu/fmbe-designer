@@ -1,10 +1,11 @@
-import { AmbientLight, AxesHelper, Color, DirectionalLight, GridHelper, PerspectiveCamera, Scene, WebGLRenderer } from "three";
+import { AmbientLight, AxesHelper, Color, GridHelper, PerspectiveCamera, Scene, SRGBColorSpace, WebGLRenderer } from "three";
 import OrbitCameraControl from "./OrbitCameraControl";
 
 export const renderer: WebGLRenderer = new WebGLRenderer({ antialias: true });
 renderer.setSize(innerWidth, innerHeight);
 renderer.setPixelRatio(devicePixelRatio);
 renderer.shadowMap.enabled = true;
+renderer.outputColorSpace = SRGBColorSpace
 
 export const scene: Scene = new Scene();
 scene.background = new Color(0x222222);
@@ -20,11 +21,7 @@ window.addEventListener("resize", function (): void {
 export const orbit: OrbitCameraControl = new OrbitCameraControl(camera, 0.005, 0.0075);
 orbit.setupInput(renderer.domElement);
 
-scene.add(new AmbientLight(0xffffff, 0.6));
-
-const directionalLight: DirectionalLight = new DirectionalLight(0xffffff, 0.7);
-directionalLight.position.set(10, 20, 15);
-scene.add(directionalLight);
+scene.add(new AmbientLight(0xffffff, 1));
 
 const gridHelper1 = new GridHelper(3, 3, 0x444444, 0x444444);
 gridHelper1.position.y -= 0.5;

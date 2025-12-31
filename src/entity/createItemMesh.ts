@@ -1,7 +1,8 @@
-import { BufferGeometry, DoubleSide, Float32BufferAttribute, Mesh, MeshStandardMaterial } from "three";
+import { BufferGeometry, Color, DoubleSide, Float32BufferAttribute, Mesh, MeshStandardMaterial } from "three";
 import { FACE } from "../constants";
 import { loadImage } from "../util/loadImage";
 
+const cachedColor = new Color();
 export async function createItemMesh(imageURL: string, pixelSize: number = 1 / 16, depth: number = 1 / 16, alphaThreshold: number = 10): Promise<Mesh> {
 	const imageElement: HTMLImageElement = await loadImage(imageURL);
 	const canvasElement = document.createElement("canvas");
@@ -26,11 +27,12 @@ export async function createItemMesh(imageURL: string, pixelSize: number = 1 / 1
 	};
 	const getPixelColor = (x: number, y: number): [number, number, number] => {
 		const index: number = (y * width + x) * 4;
-		return [
-			data[index] / 255,
-			data[index + 1] / 255,
-			data[index + 2] / 255
-		];
+		const r = data[index] / 255;
+		const g = data[index + 1] / 255;
+		const b = data[index + 2] / 255;
+		cachedColor.setRGB(r, g, b);
+		cachedColor.convertSRGBToLinear();
+		return [cachedColor.r, cachedColor.g, cachedColor.b];
 	};
 	const addFace = (x: number, y: number, z: number, corners: number[][], normal: number[], color: [number, number, number]) => {
 		for (const corner of corners) {
@@ -79,7 +81,7 @@ export async function createItemMesh(imageURL: string, pixelSize: number = 1 / 1
 	);
 	return new Mesh(geometry, new MeshStandardMaterial({
 		vertexColors: true,
-		roughness: 1,
+		roughness: 0,
 		metalness: 0,
 		side: DoubleSide
 	}));

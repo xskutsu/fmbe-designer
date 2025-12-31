@@ -1,7 +1,7 @@
-import { Material, MeshStandardMaterial, NearestFilter, SRGBColorSpace, Texture } from "three";
+import { BoxGeometry, Material, Mesh, MeshStandardMaterial, NearestFilter, SRGBColorSpace, Texture } from "three";
 import { EntityTexture } from "./types";
 
-export function createEntityMaterial(et: EntityTexture): Material[] {
+export function createBlockMesh(et: EntityTexture): Mesh {
 	const materials: Material[] = [];
 	const textures: Texture[] = [et.east, et.west, et.up, et.down, et.south, et.north];
 	for (const texture of textures) {
@@ -15,6 +15,5 @@ export function createEntityMaterial(et: EntityTexture): Material[] {
 			metalness: 0
 		}));
 	}
-	return materials;
-
+	return new Mesh(new BoxGeometry(1, 1, 1), materials);
 }

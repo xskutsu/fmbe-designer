@@ -1,20 +1,16 @@
-import { BoxGeometry, Mesh } from "three";
+import { Mesh } from "three";
 import { DEG_TO_RAD } from "../constants";
 import { parseFMBEValue } from "../fmbe/parseFMBEValue";
 import { FMBE } from "../fmbe/types";
 import { scene } from "../viewport/viewport";
-import { createEntityMaterial } from "./createMaterial";
-import { EntityTexture } from "./types";
-
-const geometry = new BoxGeometry(1, 1, 1);
 
 export const entities: Map<string, Entity> = new Map<string, Entity>();
 
 export class Entity {
 	public mesh: Mesh;
 	public fmbe: FMBE;
-	constructor(textures: EntityTexture, fmbe: FMBE) {
-		this.mesh = new Mesh(geometry, createEntityMaterial(textures));
+	constructor(mesh: Mesh, fmbe: FMBE) {
+		this.mesh = mesh;
 		this.mesh.matrixAutoUpdate = false;
 		this.fmbe = fmbe;
 		scene.add(this.mesh);
@@ -70,15 +66,19 @@ export class Entity {
 		const m12: number = k * wy * wz;
 		const m22: number = 1 + k * wz * wz;
 
-		// compute M_ext columns by applying the non-uniform scale S(1, es, 1)
+		// secondary Y-scale multiplier.
+		// only blocks apply es again on the y axis.
+		const scaleY: number = (this.mesh.geometry.type === "BoxGeometry") ? es : 1;
+
+		// compute M_ext columns by applying the non-uniform scale S(1, scaleY, 1)
 		// column 0 (unscaled)
 		const e00: number = m00;
 		const e10: number = m01;
 		const e20: number = m02;
-		// column 1 (scaled by es)
-		const e01: number = m01 * es;
-		const e11: number = m11 * es;
-		const e21: number = m12 * es;
+		// column 1 (scaled by scaleY)
+		const e01: number = m01 * scaleY;
+		const e11: number = m11 * scaleY;
+		const e21: number = m12 * scaleY;
 		// column 2 (unscaled)
 		const e02: number = m02;
 		const e12: number = m12;

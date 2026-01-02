@@ -11,7 +11,7 @@ export default class OrbitCameraControl {
 	public isDragging: boolean;
 	public readonly mouse: Vector2;
 
-	public constructor(camera: Camera, moveSpeed: number, zoomSpeed: number, domElement: HTMLElement, startingPosition?: Vector3, interpolationSpeed: number = 0.2) {
+	public constructor(camera: Camera, moveSpeed: number, zoomSpeed: number, domElement: HTMLElement, startingPosition?: Vector3, interpolationSpeed: number = 0.15) {
 		this.camera = camera;
 		this.moveSpeed = moveSpeed;
 		this.zoomSpeed = zoomSpeed;

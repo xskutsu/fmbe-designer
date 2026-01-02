@@ -3,30 +3,24 @@ const { spawn } = require("node:child_process");
 const isWatch = process.argv.includes("--watch");
 const isRun = process.argv.includes("--run");
 const banner = `
-// 2025 (C) All Rights Reserved.
+// 2026 (C) AGPL-3.0-or-later
 // https://github.com/xskutsu/fmbeve
 `.trim();
 
-async function build(config) {
-	return await esbuild.context({
+(async function () {
+	console.log("Starting building...");
+	const context = await esbuild.context({
 		bundle: true,
 		target: "es2024",
-		sourcemap: true,
+		sourcemap: false,
+		sourcesContent: false,
 		banner: {
 			js: banner
 		},
-		...config
-	});
-}
-
-(async function () {
-	console.log("Starting building...");
-	const context = await build({
 		entryPoints: [
 			"./src/index.ts",
 			"./src/sw.ts"
 		],
-		sourcesContent: false,
 		format: "iife",
 		outdir: "public/js/",
 		platform: "browser",

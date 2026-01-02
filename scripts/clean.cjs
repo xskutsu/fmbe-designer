@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const projectRoot = path.resolve(__dirname, "..");
 const pathsToDelete = [
-	"public/js/",
 	"public/js/"
 ];
 console.log("Starting cleaning...");

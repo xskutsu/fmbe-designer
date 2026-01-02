@@ -1,6 +1,6 @@
 {
 	"name": "fmbeve",
-	"private": true,
+	"private": false,
 	"version": "1.0.0",
 	"description": "A visual real-time editor for the FMBE technique.",
 	"type": "commonjs",
@@ -12,11 +12,7 @@
 		"serve": "node scripts/serve.cjs",
 		"watch": "node scripts/esbuild.cjs --watch"
 	},
-	"author": "SkaraDev63425742",
-	"license": "UNLICENSED",
-	"contributors": [
-		"xskutsu <xsku@protonmail.com>"
-	],
+	"license": "AGPL-3.0-or-later",
 	"dependencies": {
 		"esbuild": "^0.27.2",
 		"express": "^5.2.1",

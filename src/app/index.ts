@@ -4,15 +4,14 @@ import { Viewport } from "./render/view/viewport";
 
 const editor: Editor = new Editor();
 
-const viewport: Viewport = new Viewport(innerWidth, innerHeight, Math.min(devicePixelRatio, 2));
+const viewport: Viewport = new Viewport(editor.scene, document.body);
 
-const cameraControl = new OrbitCameraControl(viewport.camera);
-cameraControl.addListeners(viewport.renderer.domElement);
+const cameraControl = new OrbitCameraControl(viewport.camera, viewport.renderer.domElement);
 
 function animateFrame(): void {
 	cameraControl.update();
 	editor.update(null);
-	viewport.render(editor.scene);
+	viewport.render();
 	requestAnimationFrame(animateFrame);
 }
 

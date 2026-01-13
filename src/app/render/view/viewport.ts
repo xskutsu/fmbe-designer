@@ -48,6 +48,9 @@ export class Viewport {
 	}
 
 	private _updateDimensions(width: number, height: number, dpr: number): void {
+		if (width < 1 || height < 1) {
+			return;
+		}
 		this.renderer.setPixelRatio(clamp(dpr, 0.5, 8));
 		this.renderer.setSize(width, height, false);
 		this.camera.aspect = width / height;

@@ -1,5 +1,5 @@
+import { clamp } from "three/src/math/MathUtils.js";
 import { DEG_TO_RAD, RAD_TO_DEG } from "../constants";
-import { clamp } from "../util/clamp";
 import type { MolangMathFunc } from "./types";
 
 export const MathImpl: Record<string, MolangMathFunc> = {

@@ -18,7 +18,7 @@
 		"enabled": true,
 		"indentStyle": "tab",
 		"indentWidth": 8,
-		"lineEnding": "lf",
+		"lineEnding": "crlf",
 		"lineWidth": 100,
 		"expand": "auto"
 	},

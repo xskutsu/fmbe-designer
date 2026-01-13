@@ -13,7 +13,10 @@ const editor: Editor = new Editor();
 const viewport: Viewport = new Viewport(document.body);
 viewport.onresize = () => viewport.render(editor.scene);
 
-const cameraControl = new OrbitCameraControl(viewport.camera, viewport.renderer.domElement);
+const cameraControl: OrbitCameraControl = new OrbitCameraControl(
+	viewport.camera,
+	viewport.renderer.domElement
+);
 
 const molangVariables: MolangVariableMap = new Map([
 	["q.life_time", () => performance.now() / 1000],
@@ -23,15 +26,6 @@ const molangVariables: MolangVariableMap = new Map([
 	["q.modified_distance_moved", () => 0],
 	["query.modified_distance_moved", () => 0]
 ]);
-
-function animateFrame(): void {
-	cameraControl.update();
-	editor.update(molangVariables);
-	viewport.render(editor.scene);
-	requestAnimationFrame(animateFrame);
-}
-
-animateFrame();
 
 const loader = new TextureLoader();
 
@@ -49,7 +43,7 @@ const entity = new Entity(
 		data: {
 			position: {
 				x: null,
-				y: 1,
+				y: "math.sin(q.life_time * 67)",
 				z: null
 			},
 			basePosition: {
@@ -62,13 +56,13 @@ const entity = new Entity(
 				y: null,
 				z: null
 			},
-			scale: 1,
+			scale: null,
 			extend: {
 				rotation: {
-					x: 0,
-					y: -33
+					x: null,
+					y: null
 				},
-				scale: 2
+				scale: null
 			}
 		}
 	}
@@ -77,3 +71,12 @@ const entity = new Entity(
 editor.addEntity(entity);
 
 console.log(getSituateCommand(entity.fmbe.data, "@e[type=fox]"));
+
+function animateFrame(): void {
+	cameraControl.update();
+	editor.update(molangVariables);
+	viewport.render(editor.scene);
+	requestAnimationFrame(animateFrame);
+}
+
+animateFrame();

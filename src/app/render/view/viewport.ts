@@ -1,57 +1,65 @@
 import { PerspectiveCamera, type Scene, SRGBColorSpace, WebGLRenderer } from "three";
-import { clamp } from "../../util/clamp";
 
 export class Viewport {
-	public container: HTMLElement;
-	public renderer: WebGLRenderer;
-	public camera: PerspectiveCamera;
-	public observer: ResizeObserver;
+	public readonly container: HTMLElement;
+	public readonly renderer: WebGLRenderer;
+	public readonly camera: PerspectiveCamera;
+	private _observer: ResizeObserver;
 	public onresize: (() => void) | null;
 
 	public constructor(container: HTMLElement) {
 		this.container = container;
 		this.renderer = new WebGLRenderer({
-			antialias: false
+			antialias: false,
+			powerPreference: "high-performance"
 		});
 		this.renderer.shadowMap.enabled = true;
 		this.renderer.outputColorSpace = SRGBColorSpace;
 		this.renderer.domElement.style.width = "100%";
 		this.renderer.domElement.style.height = "100%";
 		this.renderer.domElement.style.display = "block";
+		this.renderer.domElement.style.touchAction = "none";
 		this.container.appendChild(this.renderer.domElement);
 		this.camera = new PerspectiveCamera(60, 1, 0.1, 200);
-		this.observer = new ResizeObserver(this._containerResizeEvent.bind(this));
-		this.observer.observe(this.container);
+		this._observer = new ResizeObserver(this._resizeObserverCallback.bind(this));
+		this._observer.observe(this.container);
 		this.onresize = null;
-		const rect: DOMRect = this.container.getBoundingClientRect();
-		this._updateDimensions(rect.width, rect.height, devicePixelRatio);
+		const rect = this.container.getBoundingClientRect();
+		this._updateDimensions(rect.width, rect.height);
 	}
 
 	public dispose(): void {
+		this._observer.disconnect();
 		this.renderer.domElement.remove();
 		this.renderer.dispose();
-		this.observer.disconnect();
-		if (this.container.contains(this.renderer.domElement)) {
-			this.renderer.domElement.removeChild(this.renderer.domElement);
-		}
+		this.onresize = null;
 	}
 
 	public render(scene: Scene): void {
 		this.renderer.render(scene, this.camera);
 	}
 
-	private _containerResizeEvent(entries: ResizeObserverEntry[]): void {
-		const entry: ResizeObserverEntry = entries[0];
-		const width: number = entry.contentRect.width;
-		const height: number = entry.contentRect.height;
-		this._updateDimensions(width, height, devicePixelRatio);
+	private _resizeObserverCallback(entries: ResizeObserverEntry[]): void {
+		let maxWidth: number = 0;
+		let maxHeight: number = 0;
+		for (const entry of entries) {
+			const width: number = entry.contentRect.width;
+			const height: number = entry.contentRect.height;
+			if (maxWidth < width) {
+				maxWidth = width;
+			}
+			if (maxHeight < height) {
+				maxHeight = height;
+			}
+		}
+		this._updateDimensions(maxWidth, maxHeight);
 	}
 
-	private _updateDimensions(width: number, height: number, dpr: number): void {
+	private _updateDimensions(width: number, height: number): void {
 		if (width < 1 || height < 1) {
 			return;
 		}
-		this.renderer.setPixelRatio(clamp(dpr, 0.5, 8));
+		this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 		this.renderer.setSize(width, height, false);
 		this.camera.aspect = width / height;
 		this.camera.updateProjectionMatrix();

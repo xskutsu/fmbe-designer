@@ -13,7 +13,7 @@ for (let p of pathsToDelete) {
 	p = join(projectRoot, p);
 	try {
 		rmSync(p, {
-			recursive: true,
+			recursive: true
 		});
 	} catch (error) {
 		if (
